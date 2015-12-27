@@ -1,4 +1,5 @@
 channel:
   build: .
+  container_name: channel
   net: host
 
