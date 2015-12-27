@@ -1,0 +1,6 @@
+channel:
+  image: channel
+  ports:
+    - "23:22"
+
+
