@@ -17,7 +17,7 @@ fi
 USERNAME=channel
 PASSWORD=channel
 
-adduser -s /bin/false -D ${USERNAME}
+adduser -s /sbin/nologin -D ${USERNAME}
 passwd ${USERNAME} <<EOF
 ${PASSWORD}
 ${PASSWORD}
