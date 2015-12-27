@@ -8,7 +8,6 @@ RUN sed -i '/^#AllowTcpForwarding/c\AllowTcpForwarding yes' /etc/ssh/sshd_config
 RUN sed -i '/^#GatewayPorts/c\GatewayPorts yes' /etc/ssh/sshd_config
 RUN sed -i '/^#PasswordAuthentication/c\PasswordAuthentication yes' /etc/ssh/sshd_config
 
-EXPOSE 22
-
 COPY docker-entrypoint.sh /
+EXPOSE 7878
 CMD ["/docker-entrypoint.sh"]
