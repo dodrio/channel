@@ -17,7 +17,7 @@ fi
 USERNAME=channel
 PASSWORD=channel
 
-adduser -s /bin/sh -D ${USERNAME}
+adduser -s /bin/false -D ${USERNAME}
 passwd ${USERNAME} <<EOF
 ${PASSWORD}
 ${PASSWORD}
