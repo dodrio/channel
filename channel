@@ -4,15 +4,14 @@ remote_server=$1
 remote_port=$2
 local_port=$3
 
-echo "Tunneling ${remote_server}:${remote_port} -> localhost:${local_port} ..."
-
 # Keep long connection 
 #   TCPKeepAlive=yes 
 #   ServerAliveInterval=30
 # Don't indenify the remote host
 #   UserKnownHostsFile=/dev/null
 #   StrictHostKeyChecking=no
-ssh -o TCPKeepAlive=yes \
+ssh -v \
+    -o TCPKeepAlive=yes \
     -o ServerAliveInterval=30 \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
