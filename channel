@@ -1,0 +1,8 @@
+#!/bin/bash
+
+remote_server=$1
+remote_port=$2
+local_port=$3
+
+echo "Tunneling ${remote_server}:${remote_port} -> localhost:${local_port} ..."
+ssh -p 7878 channel@${remote_server} -N -R ${remote_port}:localhost:${local_port}
