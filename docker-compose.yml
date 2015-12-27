@@ -1,6 +1,4 @@
 channel:
-  image: channel
-  ports:
-    - "23:22"
-
+  build: .
+  net: host
 
