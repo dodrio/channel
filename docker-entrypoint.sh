@@ -14,8 +14,8 @@ if [ ! -e /etc/ssh/ssh_host_rsa_key ]; then
     ssh-keygen -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key
 fi
 
-USERNAME=channel
-PASSWORD=channel
+: ${USERNAME:="channel"}
+: ${PASSWORD:="channel"}
 
 adduser -s /sbin/nologin -D ${USERNAME}
 passwd ${USERNAME} <<EOF
