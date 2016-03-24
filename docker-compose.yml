@@ -2,4 +2,6 @@ channel:
   build: .
   container_name: channel
   net: host
+  environment:
+    - PASSWORD=AnotherPassword
   restart: always
