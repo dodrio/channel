@@ -2,4 +2,4 @@ channel:
   build: .
   container_name: channel
   net: host
-
+  restart: always
