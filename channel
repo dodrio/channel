@@ -1,18 +1,20 @@
 #!/bin/bash
 
-remote_server=$1
-remote_port=$2
-local_port=$3
+REMOTE_SERVER=$1
+REMOTE_PORT=$2
+LOCAL_PORT=$3
 
-# Keep long connection 
-#   TCPKeepAlive=yes 
+# Keep long connection
+#   TCPKeepAlive=yes
 #   ServerAliveInterval=30
-# Don't indenify the remote host
+#   ServerAliveCountMax=5
+# Don't identify the remote host
 #   UserKnownHostsFile=/dev/null
 #   StrictHostKeyChecking=no
 ssh -v \
     -o TCPKeepAlive=yes \
-    -o ServerAliveInterval=30 \
+    -o ServerAliveInterval=10 \
+    -o ServerAliveCountMax=5 \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
-    -p 7878 channel@${remote_server} -N -R ${remote_port}:localhost:${local_port}
+    -p 7878 channel@"${REMOTE_SERVER}" -N -R "${REMOTE_PORT}":127.0.0.1:"${LOCAL_PORT}"
