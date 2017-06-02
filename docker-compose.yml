@@ -1,7 +1,10 @@
-channel:
-  build: .
-  container_name: channel
-  net: host
-  environment:
-    - PASSWORD=AnotherPassword
-  restart: always
+version: '3'
+
+services:
+  channel:
+    image: m31271n/channel
+    container_name: channel
+    network_mode: host
+    environment:
+      - PASSWORD=anewpassword
+    restart: always
