@@ -1,20 +1,76 @@
 #!/bin/bash
 
-REMOTE_SERVER=$1
-REMOTE_PORT=$2
-LOCAL_PORT=$3
+check_deps() {
+    if [ -z "$(command -v ssh)" ] ; then
+        echo 'OpenSSH is not installed.'
 
-# Keep long connection
-#   TCPKeepAlive=yes
-#   ServerAliveInterval=30
-#   ServerAliveCountMax=5
-# Don't identify the remote host
-#   UserKnownHostsFile=/dev/null
-#   StrictHostKeyChecking=no
-ssh -v \
-    -o TCPKeepAlive=yes \
-    -o ServerAliveInterval=10 \
-    -o ServerAliveCountMax=5 \
-    -o UserKnownHostsFile=/dev/null \
-    -o StrictHostKeyChecking=no \
-    -p 7878 channel@"${REMOTE_SERVER}" -N -R "${REMOTE_PORT}":127.0.0.1:"${LOCAL_PORT}"
+        exit 2
+    fi
+}
+
+usage() {
+    echo "Usage: $(basename "$0") -a <remote address> -r <remote port> -l <local port>"
+    echo
+    echo "options:"
+    echo "  -a | --remote-address <IP or domain>"
+    echo "  -r | --remote-port <port>"
+    echo "  -l | --local-port <port>"
+    echo
+
+    exit 1
+}
+
+tunnel() {
+    REMOTE_ADDRESS=$1
+    REMOTE_PORT=$2
+    LOCAL_PORT=$3
+
+    # Keep long connection
+    #   TCPKeepAlive=yes
+    #   ServerAliveInterval=30
+    #   ServerAliveCountMax=5
+    # Don't identify the remote host
+    #   UserKnownHostsFile=/dev/null
+    #   StrictHostKeyChecking=no
+    ssh -v \
+        -o TCPKeepAlive=yes \
+        -o ServerAliveInterval=10 \
+        -o ServerAliveCountMax=5 \
+        -o UserKnownHostsFile=/dev/null \
+        -o StrictHostKeyChecking=no \
+        -p 7878 channel@"${REMOTE_ADDRESS}" -N -R "${REMOTE_PORT}":127.0.0.1:"${LOCAL_PORT}"
+}
+
+# main
+
+check_deps
+
+while [ $# -gt 0 ]; do
+    key="$1"
+
+    case $key in
+        -a | --remote-address)
+            REMOTE_ADDRESS="$2"
+            shift
+            ;;
+        -r | --remote-port)
+            REMOTE_PORT="$2"
+            shift
+            ;;
+        -l | --local-port)
+            LOCAL_PORT="$2"
+            shift
+            ;;
+        *)
+            usage
+            ;;
+    esac
+
+    shift
+done
+
+if [ -z "$REMOTE_ADDRESS" ] || [ -z "$REMOTE_PORT" ] || [ -z "$LOCAL_PORT" ]; then
+    usage
+else
+    tunnel "$REMOTE_ADDRESS" "$REMOTE_PORT" "$LOCAL_PORT"
+fi
