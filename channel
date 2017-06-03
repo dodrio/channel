@@ -32,13 +32,14 @@ tunnel() {
     # Don't identify the remote host
     #   UserKnownHostsFile=/dev/null
     #   StrictHostKeyChecking=no
-    ssh -nNTv \
+    command ssh -F /dev/null \
+        -nNTv \
         -o TCPKeepAlive=yes \
         -o ServerAliveInterval=10 \
         -o ServerAliveCountMax=5 \
         -o UserKnownHostsFile=/dev/null \
         -o StrictHostKeyChecking=no \
-        -R "$REMOTE_PORT":127.0.0.1:"$LOCAL_PORT" \
+        -R 0.0.0.0:"$REMOTE_PORT":127.0.0.1:"$LOCAL_PORT" \
         -p 7878 channel@"$REMOTE_ADDRESS"
 }
 
