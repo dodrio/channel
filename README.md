@@ -1,6 +1,6 @@
 # Channel
 
-Inspired by [Rodny Rehm](https://blog.rodneyrehm.de/archives/38-You-may-not-need-localtunnel-or-ngrok.html).
+OpenSSH based localtunnel.
 
 ## Usage
 
@@ -23,3 +23,7 @@ Run the client:
 # Remote port forward <remote address>:<remote port> to <local port>
 channel -a <remote address> -r <remote port> -l <local port>
 ```
+
+## Last
+
+Inspired by [Rodny Rehm](https://blog.rodneyrehm.de/archives/38-You-may-not-need-localtunnel-or-ngrok.html).
